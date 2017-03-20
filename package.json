@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Roy Eng",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/royboy5/todo-api.git"
+  },
+  "author": "Roy Eng <roye19@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",

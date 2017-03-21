@@ -4,6 +4,7 @@
 
 const gulp = require('gulp'),
 	  gutil = require('gulp-util'),
+	  eslint = require('gulp-eslint'),
 	  spawn = require('child_process').spawn,
 	  paths = {
 	  	src: 'src'
@@ -23,6 +24,12 @@ gulp.task( 'server', () => {
 gulp.task( 'watch', ['server'], () => {
     gulp.watch( './**/*.js', ['server'] )
     //gulp.watch( './**/*.json', ['server'] )
+})
+
+gulp.task('lint', () => {
+    return gulp.src( [ './src/**/*.js' ] )
+        .pipe( eslint(), './.eslintrc.js' )
+        .pipe( eslint.format() )
 })
 
 gulp.task( 'default', ['watch'] )

@@ -12,7 +12,7 @@ module.exports = {
 
     db: {
         mongodb: {
-            uri: getenv('DB_URI')
+            uri: getenv('DB_URI', 'no connection')
         }
     }
 

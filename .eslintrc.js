@@ -78,10 +78,10 @@ module.exports = {
             }
         ],
         "line-comment-position": "off",
-        /*"linebreak-style": [
+        "linebreak-style": [
             "error",
             "unix"
-        ],*/
+        ],
         "lines-around-comment": "off",
         "lines-around-directive": "error",
         "max-depth": "error",

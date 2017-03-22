@@ -7,12 +7,13 @@ const getenv = require('getenv');
 module.exports = {
 
     logging: {
-        level: getenv('LOG_LEVEL', 'debug')
+        level: getenv('LOG_LEVEL', 'debug'),
+        query: true
     },
 
     db: {
         mongodb: {
-            uri: getenv('DB_URI', 'no connection')
+            uri: 'mongodb://test:test@ds137370.mlab.com:37370/node-base'
         }
     }
 

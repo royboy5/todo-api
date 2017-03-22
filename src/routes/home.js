@@ -2,12 +2,12 @@
 
 const log = require('../utils/logger')
 
-var express = require('express');
-var router = new express.Router();
+const express = require('express');
+const router = new express.Router();
 
 router.get('/', (req, res) => {
-    log.info(`Accessed /`)
-    res.send('Hello');
+    log.info('Accessed /')
+    res.send('Home')
 })
 
 module.exports = router

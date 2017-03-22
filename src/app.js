@@ -10,9 +10,10 @@ const log = utils.logger
 const express = require('express')
 const app = express()
 
-log.info(`App Starting...`)
+log.info('App Starting...')
 
 app.use('/', routes.home)
+app.use('/sample', routes.sample)
 
 
 module.exports = app

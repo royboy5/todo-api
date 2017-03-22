@@ -16,7 +16,7 @@ const moment = require('moment')
 module.exports = new winston.Logger({
     transports: [
         new winston.transports.Console({
-            timestamp:         function() {
+            timestamp() {
                 return moment().format('MM-DD-YYYY HH:mm:ss')
             }, 
             level:             config.logging.level,

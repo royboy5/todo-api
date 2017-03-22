@@ -2,17 +2,17 @@
 
 //const config = require('./config')
 const path = require('path')
-const express = require('express')
-const app = express()
-const moment = require('moment')
 const utils = require('require-all')(path.join(__dirname, 'utils'))
+const routes = require('require-all')(path.join(__dirname, 'routes'))
+
 const log = utils.logger
 
-log.info(`${moment().format('MM-DD-YYYY HH:mm:ss')} - App Starting...`)
+const express = require('express')
+const app = express()
 
-app.get('/', (req, res) => {
-    log.info(`${moment().format('MM-DD-YYYY HH:mm:ss')} - Accessed /`)
-    res.send('Hello');
-})
+log.info(`App Starting...`)
+
+app.use('/', routes.home)
+
 
 module.exports = app

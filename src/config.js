@@ -13,7 +13,7 @@ module.exports = {
 
     db: {
         mongodb: {
-            uri: 'mongodb://test:test@ds137370.mlab.com:37370/node-base'
+            uri: getenv('DB_URI', '')
         }
     }
 

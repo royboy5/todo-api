@@ -4,6 +4,8 @@ const config = require('../config')
 const mongoose = require('mongoose')
 const log = require('./logger')
 
+mongoose.Promise = global.Promise
+
 mongoose.connect( config.db.mongodb.uri, {}, err => {
     
     // Fail if we can't connect to the database

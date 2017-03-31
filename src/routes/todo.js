@@ -5,7 +5,7 @@ const router = new express.Router();
 
 const todoController = require('../controllers/todoController')
 
-router.get('/', todoController.list)
+router.get('/', todoController.listTodo)
+router.get('/setup', todoController.setupTodo)
 
 module.exports = router
-

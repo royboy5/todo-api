@@ -14,11 +14,12 @@
   "author": "Roy Eng <roye19@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "getenv": "^0.7.0",
     "moment": "^2.18.1",
-    "mongoose": "^4.9.1",
+    "mongoose": "^4.9.2",
     "require-all": "^2.2.0",
     "winston": "^2.3.1"
   },

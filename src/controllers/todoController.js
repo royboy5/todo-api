@@ -46,7 +46,9 @@ const createUserP = user => {
         .then( inDb => {
             
             if (!inDb) {
-                return user.save().then( user => { console.log(user.username) })
+                return user.save().then( user => { 
+                    log.info(user.username) 
+                })
             } 
             
             return Promise.resolve(user)
@@ -75,7 +77,7 @@ const addTodo = (user, todo) => {
 }
 
 const refTodo = todo => {
-    
+    log.info(todo)
 }
 
 const setupTodo = (req, res) => {
@@ -87,11 +89,16 @@ const setupTodo = (req, res) => {
     let user2 = new User({ username: 'test2', password: 'pass2' })
     let user3 = new User({ username: 'test3', password: 'pass3' })
 
-    createUserP(user1).then( user => { addTodo(user, 'Task1') })
-    createUserP(user2).then( user => { addTodo(user, 'Task1') })
-    createUserP(user3).then( user => { addTodo(user, 'Task1') })
+    createUserP(user1)
+        .then( user => { addTodo(user, 'Task1') })
+    createUserP(user2)
+        .then( user => { addTodo(user, 'Task1') })
+    createUserP(user3)
+        .then( user => { addTodo(user, 'Task1') })
     
-    let users = {user1, user2, user3}
+    refTodo('something')
+
+    let users = { user1, user2, user3 }
 
     res.send(users)
 

@@ -2,13 +2,13 @@
 
 // Using gulp to watch files and restart node if there are changes.
 
-const gulp = require('gulp'),
-	  gutil = require('gulp-util'),
-	  eslint = require('gulp-eslint'),
-	  spawn = require('child_process').spawn,
-	  paths = {
-	  	src: 'src'
-	  }
+const gulp = require('gulp')
+const gutil = require('gulp-util')
+const eslint = require('gulp-eslint')
+const spawn = require('child_process').spawn
+const paths = {
+    src: 'src'
+}
 
 let node = null
 

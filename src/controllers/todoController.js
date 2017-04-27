@@ -8,7 +8,7 @@ const listTodo = (req, res) => {
     log.info('/listTodo')
     Todo.find({}, (err, todo) => {
         if (err) throw err
-        res.send(todo)
+        res.json(todo)
     })
 }
 
@@ -41,20 +41,20 @@ const listTodo = (req, res) => {
 
 // Using promises
 const createUserP = user => {
-    
+
     User.findOne({ username: user.username })
-        .then( inDb => {
-            
+        .then(inDb => {
+
             if (!inDb) {
-                return user.save().then( user => { 
-                    log.info(user.username) 
+                return user.save().then(user => {
+                    log.info(user.username)
                 })
-            } 
-            
+            }
+
             return Promise.resolve(user)
-            
+
         })
-        .catch( err => { log.error(err) })
+        .catch(err => { log.error(err) })
 
     return Promise.resolve(user)
 
@@ -68,16 +68,30 @@ const addTodo = (user, todo) => {
         isComplete: false
     })
 
-    newTodo.save()
-        .then( todo => { log.info(`Todo saved: ${todo}`) })
-        .catch( err => { log.error(err) })
-
-    return Promise.resolve(newTodo)
+    return Promise.all([
+        Promise.resolve(user),
+        newTodo.save()
+        // .then( todo => { log.info(`Todo saved: ${todo}`) })
+        //.catch( err => { log.error(err) })
+    ])
 
 }
 
-const refTodo = todo => {
-    log.info(todo)
+const refTodo = (user, todo) => {
+
+    log.info(`User: ${user}`)
+        // log.info(`Todo: ${todo}`)
+
+    User.findOne({ _id: user._id })
+        .then(dbuser => {
+            dbuser.todos.push(todo._id)
+            log.info(`${dbuser}`)
+            return dbuser.save()
+        })
+
+    return Promise.resolve(user)
+        // .then( () => { log.info(`Todo saved: ${user}`) })
+        // .catch( err => { log.error(err) })
 }
 
 const setupTodo = (req, res) => {
@@ -90,19 +104,32 @@ const setupTodo = (req, res) => {
     let user3 = new User({ username: 'test3', password: 'pass3' })
 
     createUserP(user1)
-        .then( user => { addTodo(user, 'Task1') })
+        .then(user => {
+            addTodo(user, 'User1 Task1')
+                .then(([user, todo]) => {
+                    refTodo(user, todo)
+                })
+        })
     createUserP(user2)
-        .then( user => { addTodo(user, 'Task1') })
+        .then(user => {
+            addTodo(user, 'User2 Task1')
+                .then(([user, todo]) => {
+                    refTodo(user, todo)
+                })
+        })
     createUserP(user3)
-        .then( user => { addTodo(user, 'Task1') })
-    
-    refTodo('something')
+        .then(user => {
+            addTodo(user, 'User3 Task1')
+                .then(([user, todo]) => {
+                    refTodo(user, todo)
+                })
+        })
 
-    let users = { user1, user2, user3 }
+    //let users = { user1, user2, user3 }
 
-    res.send(users)
+    res.send('created')
 
 }
 
-module.exports.listTodo  = listTodo
+module.exports.listTodo = listTodo
 module.exports.setupTodo = setupTodo

@@ -15,6 +15,11 @@ module.exports = {
         mongodb: {
             uri: getenv('DB_URI', '')
         }
+    },
+
+    token: {
+        secret: getenv('TOKEN_SECRET', 'no secret'),
+        expires: getenv('TOKEN_EXPIRATION_DAYS', 1)
     }
 
 }

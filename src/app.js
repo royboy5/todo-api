@@ -12,7 +12,9 @@ const app = express()
 
 log.info('App Starting...')
 
-app.use('/', routes.todo)
+app.use('/', routes.home)
+app.use('/todos', routes.todo)
+app.use('/users', routes.user)
 app.use('/sample', routes.sample)
 
 

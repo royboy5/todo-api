@@ -13,8 +13,7 @@ const sampleCtrl = (req, res) => {
 
 const setupDb = (req, res) => {
     log.info('/setup')
-    let starterSamples = [
-        {
+    let starterSamples = [{
             username: 'test1'
         },
         {
@@ -24,10 +23,10 @@ const setupDb = (req, res) => {
             username: 'test3'
         }
     ];
-        
+
     Sample.create(starterSamples, (err, results) => {
-        if (err) throw err;
-        res.send(results);
+        if (err) throw err
+        res.send(results)
     });
 
 }

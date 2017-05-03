@@ -9,13 +9,18 @@ const log = utils.logger
 
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 
 log.info('App Starting...')
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json())
 
 app.use('/', routes.home)
 app.use('/todos', routes.todo)
 app.use('/users', routes.user)
 app.use('/sample', routes.sample)
-
 
 module.exports = app

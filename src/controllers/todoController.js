@@ -4,7 +4,7 @@ const log = require('../utils/logger')
 const Todo = require('../models/todoModel')
 const User = require('../models/userModel')
 
-const listTodo = (req, res) => {
+const todo_list = (req, res) => {
     log.info('/listTodo')
     Todo.find({}, (err, todo) => {
         if (err) throw err
@@ -131,5 +131,5 @@ const setupTodo = (req, res) => {
 
 }
 
-module.exports.listTodo = listTodo
+module.exports.todo_list = todo_list
 module.exports.setupTodo = setupTodo

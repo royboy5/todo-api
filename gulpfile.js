@@ -14,7 +14,7 @@ let node = null
 
 gulp.task( 'server', () => {
     if ( node ) node.kill()
-    node = spawn( 'node', ['--debug=5858', paths.src + '/index.js'], { stdio: 'inherit' } )
+    node = spawn( 'node', ['--inspect=5858', paths.src + '/index.js'], { stdio: 'inherit' } )
     node.on( 'close', code => {
         if ( code === 8 )
             gutil.log( gutil.colors.red( 'Error detected, waiting for changes...' ) )

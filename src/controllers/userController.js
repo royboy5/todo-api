@@ -3,6 +3,7 @@
 const log = require('../utils/logger')
 const User = require('../models/userModel')
 
+// returns a list of all users
 const user_list = (req, res) => {
     log.info('user_list')
     log.info(req.body)
@@ -12,6 +13,7 @@ const user_list = (req, res) => {
     })
 }
 
+// creates a user via POST
 const user_create_post = (req, res) => {
 
 }

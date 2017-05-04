@@ -7,7 +7,7 @@ const router = new express.Router();
 
 router.get('/', (req, res) => {
     log.info('Accessed /')
-    res.send('Home')
+    res.send('Index')
 })
 
 module.exports = router

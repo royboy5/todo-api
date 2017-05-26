@@ -6,21 +6,59 @@ const User = require('../models/userModel')
 // returns a list of all users
 const user_list = (req, res) => {
     log.info('user_list')
-    log.info(req.params.user)
     User.find({}, (err, user) => {
         if (err) throw err
-        res.json(user)
+        res.status(200).json(user)
     })
 }
 
 // gets a single user via GET
 const user_get = (req, res) => {
-    res.send(`NOT IMPLEMENTED! ${req.params.user}`)
+
+    log.info(`Get User: ${req.params.user}`)
+
+    User.findOne({ username: req.params.user }).select('+password')
+        .then(user => {
+            if (user) {
+                log.info(`User ${user.username} found!`)
+                res.status(200).json(user)
+            } else {
+                log.error(`User not found!`)
+                res.status(404).json({ error: `User ${req.params.user} not found!` })
+            }
+
+        })
+        .catch(err => { log.error(err) })
+
 }
 
 // creates a user via POST
 const user_create_post = (req, res) => {
-    res.send('NOT IMPLEMENTED! User create POST')
+
+    log.info('create user via POST')
+
+    User.findOne({ username: req.body.username }, (err, user) => {
+        if (err) throw err
+
+        if (user) {
+            log.error(`User already exists!`)
+            res.status(409).json({ error: `User already exists!` })
+        } else {
+            log.info(`No user found, creating new user...`)
+
+            let newUser = new User({
+                username: req.body.username,
+                password: req.body.password
+            })
+
+            newUser.save(err => {
+                if (err) throw err;
+            })
+
+            res.status(201).json(newUser)
+        }
+    })
+
 }
 
 // deletes a user via POST

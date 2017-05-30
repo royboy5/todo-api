@@ -13,6 +13,7 @@ const bodyParser = require('body-parser')
 
 log.info('App Starting...')
 
+app.disable('x-powered-by')
 app.use(bodyParser.urlencoded({
     extended: true
 }));

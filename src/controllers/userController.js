@@ -2,6 +2,8 @@
 
 const log = require('../utils/logger')
 const User = require('../models/userModel')
+const { USER_NOT_FOUND } = require('../res/errors')
+const { USER_ALREADY_EXISTS } = require('../res/errors')
 
 // returns a list of all users
 const user_list = (req, res) => {
@@ -15,16 +17,16 @@ const user_list = (req, res) => {
 // gets a single user via GET
 const user_get = (req, res) => {
 
-    log.info(`Get User: ${req.params.user}`)
+    log.info(`Get User: ${req.params.user.toLowerCase()}`)
 
-    User.findOne({ username: req.params.user }).select('+password')
+    User.findOne({ username: req.params.user.toLowerCase() }).select('+password')
         .then(user => {
             if (user) {
                 log.info(`User ${user.username} found!`)
                 res.status(200).json(user)
             } else {
-                log.error(`User not found!`)
-                res.status(404).json({ error: `User ${req.params.user} not found!` })
+                log.error(USER_NOT_FOUND)
+                res.status(404).json({ error: USER_NOT_FOUND.message })
             }
 
         })
@@ -37,12 +39,12 @@ const user_create_post = (req, res) => {
 
     log.info('create user via POST')
 
-    User.findOne({ username: req.body.username }, (err, user) => {
+    User.findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
         if (err) throw err
 
         if (user) {
-            log.error(`User already exists!`)
-            res.status(409).json({ error: `User already exists!` })
+            log.error(USER_ALREADY_EXISTS)
+            res.status(409).json({ error: USER_ALREADY_EXISTS.message })
         } else {
             log.info(`No user found, creating new user...`)
 

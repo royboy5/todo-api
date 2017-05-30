@@ -22,11 +22,10 @@ const user_get = (req, res) => {
     User.findOne({ username: req.params.user.toLowerCase() }).select('+password')
         .then(user => {
             if (user) {
-                log.info(`User ${user.username} found!`)
                 res.status(200).json(user)
             } else {
                 log.error(USER_NOT_FOUND)
-                res.status(404).json({ error: USER_NOT_FOUND.message })
+                res.status(404).json(USER_NOT_FOUND)
             }
 
         })
@@ -44,10 +43,8 @@ const user_create_post = (req, res) => {
 
         if (user) {
             log.error(USER_ALREADY_EXISTS)
-            res.status(409).json({ error: USER_ALREADY_EXISTS.message })
+            res.status(409).json(USER_ALREADY_EXISTS)
         } else {
-            log.info(`No user found, creating new user...`)
-
             let newUser = new User({
                 username: req.body.username,
                 password: req.body.password
